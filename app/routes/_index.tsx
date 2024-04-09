@@ -4,12 +4,10 @@ import { json, redirect } from "@remix-run/node"
 import { Form, useLoaderData } from "@remix-run/react"
 
 import { userCookie } from "~/only.server/cookie"
+import { db } from "~/only.server/db"
 
 export const loader = async () => {
-  const users = [
-    { name: "conan", id: 5 },
-    { name: "groucho", id: 4 },
-  ]
+  const users = await db.user.findMany()
 
   return json({ users })
 }
