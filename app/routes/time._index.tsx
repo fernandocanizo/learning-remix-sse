@@ -17,7 +17,7 @@ export async function loader() {
 
 export default function Time() {
   const loaderData = useLoaderData<typeof loader>()
-  const time = useEventSource("/sse-time", { event: "time" }) ?? loaderData.time
+  const time = useEventSource("/time/sse", { event: "time" }) ?? loaderData.time
 
   return (
     <time dateTime={time}>
