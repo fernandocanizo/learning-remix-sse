@@ -1,23 +1,25 @@
-import type { ActionFunctionArgs } from "@remix-run/node"
+import type { ActionFunctionArgs, LoaderFunctionArgs } from "@remix-run/node"
 
 import { json } from "@remix-run/node"
 import { useActionData, useLoaderData, Form } from "@remix-run/react"
 
 import { db } from "~/only.server/db"
+import { userCookie } from "~/only.server/cookie"
 
-const authorId = 5 // this should come from "login"
-
-export const loader = async () => {
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  const authorId = await userCookie.parse(request.headers.get("cookie"))
   const messages = await db.message.findMany()
-  return json({ messages })
+
+  return json({ messages, authorId })
 }
 
 export const action = async ({ request }: ActionFunctionArgs) => {
   const formData = await request.formData()
 
   const message = formData.get("message")
+  const authorId = Number(formData.get("author_id"))
 
-  if (message && typeof message === "string") {
+  if (message && authorId && typeof message === "string") {
     try {
       await db.message.create({ data: { content: message, authorId, } })
       return json(null, { status: 201 })
@@ -34,14 +36,16 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 }
 
 export default function Chat() {
-  const { messages } = useLoaderData<typeof loader>()
+  const { messages, authorId } = useLoaderData<typeof loader>()
   const actionData = useActionData<typeof action>()
 
   return (
     <>
       <Form method="post">
-        <label htmlFor="message">Message</label>
-        <input type="text" name="message" id="message" required />
+        <input type="hidden" name="author_id" id="author_id" value={authorId} />
+        <label>Message
+          <input type="text" name="message" id="message" required />
+        </label>
         <button>Send</button>
       </Form>
 
