@@ -3,6 +3,7 @@
     "**/*.ts",
     "**/*.tsx",
     "**/.server/**/*.ts",
+    "**/only.server/**/*.ts",
     "**/.server/**/*.tsx",
     "**/.client/**/*.ts",
     "**/.client/**/*.tsx"
