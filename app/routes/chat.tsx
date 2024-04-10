@@ -5,6 +5,8 @@ import { useActionData, useLoaderData, Form } from "@remix-run/react"
 
 import { db } from "~/only.server/db"
 import { userCookie } from "~/only.server/cookie"
+import { emitter } from "~/only.server/emitter"
+import { useEventStream } from "@remix-sse/client"
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const authorId = await userCookie.parse(request.headers.get("cookie"))
@@ -21,7 +23,8 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   if (message && authorId && typeof message === "string") {
     try {
-      await db.message.create({ data: { content: message, authorId, } })
+      const dbMessage = await db.message.create({ data: { content: message, authorId, } })
+      emitter.emit("message", dbMessage)
       return json(null, { status: 201 })
 
     } catch (error) {
@@ -38,6 +41,11 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 export default function Chat() {
   const { messages, authorId } = useLoaderData<typeof loader>()
   const actionData = useActionData<typeof action>()
+
+  const newMessage = useEventStream("/chat/sse", {
+    returnLatestOnly: true,
+  })
+  console.debug({newMessage})
 
   return (
     <>
