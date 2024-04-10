@@ -17,6 +17,12 @@ dependencies:
   '@remix-run/serve':
     specifier: ^2.8.1
     version: 2.8.1(typescript@5.4.4)
+  '@remix-sse/client':
+    specifier: ^1.0.1
+    version: 1.0.1(@remix-run/node@2.8.1)(@remix-run/react@2.8.1)(@remix-run/serve@2.8.1)(react-dom@18.2.0)(react@18.2.0)(regenerator-runtime@0.14.1)
+  '@remix-sse/server':
+    specifier: ^1.0.1
+    version: 1.0.1(@remix-run/node@2.8.1)(@remix-run/react@2.8.1)(@remix-run/serve@2.8.1)(react-dom@18.2.0)(react@18.2.0)(regenerator-runtime@0.14.1)
   isbot:
     specifier: ^4.1.0
     version: 4.4.0
@@ -1502,6 +1508,42 @@ packages:
     dependencies:
       web-streams-polyfill: 3.3.3
 
+  /@remix-sse/client@1.0.1(@remix-run/node@2.8.1)(@remix-run/react@2.8.1)(@remix-run/serve@2.8.1)(react-dom@18.2.0)(react@18.2.0)(regenerator-runtime@0.14.1):
+    resolution: {integrity: sha512-TF/kdfLlZ3JBB3kVtiPDtIIRI1ODhmMR3eTGAzusYK8LiZziXaot+I4WbjSvHNgTJJQBP4bsCGopMQT7EtPWAQ==}
+    peerDependencies:
+      '@remix-run/node': ^2.x
+      '@remix-run/react': ^2.x
+      '@remix-run/serve': ^2.x
+      react: '*'
+      react-dom: '*'
+      regenerator-runtime: '*'
+    dependencies:
+      '@remix-run/node': 2.8.1(typescript@5.4.4)
+      '@remix-run/react': 2.8.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.4)
+      '@remix-run/serve': 2.8.1(typescript@5.4.4)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      regenerator-runtime: 0.14.1
+    dev: false
+
+  /@remix-sse/server@1.0.1(@remix-run/node@2.8.1)(@remix-run/react@2.8.1)(@remix-run/serve@2.8.1)(react-dom@18.2.0)(react@18.2.0)(regenerator-runtime@0.14.1):
+    resolution: {integrity: sha512-Da/GgUEsI+ntj8UG4sAjqXVVNHR0zQ4uK/2gZgJWWt/L1HwzfOksW7Swr84ryWIDVb9HDPtHRPDH1XcKJ/zrUA==}
+    peerDependencies:
+      '@remix-run/node': ^2.x
+      '@remix-run/react': ^2.x
+      '@remix-run/serve': ^2.x
+      react: '*'
+      react-dom: '*'
+      regenerator-runtime: '*'
+    dependencies:
+      '@remix-run/node': 2.8.1(typescript@5.4.4)
+      '@remix-run/react': 2.8.1(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.4)
+      '@remix-run/serve': 2.8.1(typescript@5.4.4)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      regenerator-runtime: 0.14.1
+    dev: false
+
   /@rollup/rollup-android-arm-eabi@4.14.1:
     resolution: {integrity: sha512-fH8/o8nSUek8ceQnT7K4EQbSiV7jgkHq81m9lWZFIXjJ7lJzpWXbQFpT/Zh6OZYnpFykvzC3fbEvEAFZu03dPA==}
     cpu: [arm]
@@ -1873,7 +1915,7 @@ packages:
       '@babel/plugin-syntax-typescript': 7.24.1(@babel/core@7.24.4)
       '@vanilla-extract/babel-plugin-debug-ids': 1.0.5
       '@vanilla-extract/css': 1.14.2
-      esbuild: 0.17.6
+      esbuild: 0.19.12
       eval: 0.1.8
       find-up: 5.0.0
       javascript-stringify: 2.1.0
@@ -5451,7 +5493,6 @@ packages:
 
   /regenerator-runtime@0.14.1:
     resolution: {integrity: sha512-dYnhHh0nJoMfnkZs6GmmhFknAGRrLznOu5nc9ML+EJxGvrx6H7teuevqVqCuPcPK//3eDrrjQhehXVx9cnkGdw==}
-    dev: true
 
   /regexp.prototype.flags@1.5.2:
     resolution: {integrity: sha512-NcDiDkTLuPR+++OCKB0nWafEmhg/Da8aUPLPMQbK+bxKKCm1/S5he+AqYa4PlMCVBalb4/yxIRub6qkEx5yJbw==}
